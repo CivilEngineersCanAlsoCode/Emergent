@@ -103,7 +103,7 @@ class PopupController {
             try {
                 await this.startReplay();
             } catch (error) {
-                this.showError(`Replay error: ${error.message}`);
+                this.showError(`Replay error: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
         });
 
