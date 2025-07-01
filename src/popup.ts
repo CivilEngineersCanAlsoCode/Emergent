@@ -113,7 +113,7 @@ class PopupController {
             try {
                 await this.stopAll();
             } catch (error) {
-                this.showError(`Stop error: ${error.message}`);
+                this.showError(`Stop error: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
         });
 
