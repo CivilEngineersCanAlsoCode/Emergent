@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<!--
+🔹 FLOWCHART VISUALIZATION PAGE
+This page shows a visual diagram of recorded job application actions
+Think of it as a "map" that shows all the steps in your job application process
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoApply - Action Flowchart</title>
+    <!-- 
+    🔸 STYLING: Professional layout for the flowchart page
+    -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #dee2e6;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .session-selector {
+            margin-bottom: 20px;
+        }
+        
+        .session-selector select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+        
+        .flowchart-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            min-height: 500px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .placeholder {
+            text-align: center;
+            color: #999;
+        }
+        
+        .placeholder h3 {
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-list {
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .action-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .action-item:last-child {
+            border-bottom: none;
+        }
+        
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .action-click { background: #e3f2fd; }
+        .action-input { background: #f3e5f5; }
+        .action-keypress { background: #e8f5e8; }
+        .action-scroll { background: #fff3e0; }
+        .action-navigation { background: #fce4ec; }
+        
+        .action-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .action-details p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-time {
+            margin-left: auto;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    🔸 MAIN CONTAINER: Houses all the flowchart content
+    -->
+    <div class="container">
+        <!-- 
+        🔸 HEADER SECTION: Title and description
+        -->
+        <div class="header">
+            <h1>🤖 AutoApply Flowchart</h1>
+            <p>Visual representation of your recorded job application actions</p>
+        </div>
+
+        <!-- 
+        🔸 CONTROLS SECTION: Buttons and session selector
+        -->
+        <div class="controls">
+            <div class="session-selector">
+                <label for="session-select">Select Session: </label>
+                <select id="session-select">
+                    <option value="">Loading sessions...</option>
+                </select>
+            </div>
+            <button id="btn-refresh" class="btn btn-primary">🔄 Refresh</button>
+            <button id="btn-export" class="btn btn-secondary">📊 Export Data</button>
+            <button id="btn-clear" class="btn btn-secondary">🗑️ Clear Old Sessions</button>
+        </div>
+
+        <!-- 
+        🔸 STATISTICS SECTION: Overview of session data
+        -->
+        <div class="stats" id="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="total-sessions">0</div>
+                <div class="stat-label">Total Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-actions">0</div>
+                <div class="stat-label">Total Actions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avg-actions">0</div>
+                <div class="stat-label">Avg Actions/Session</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="common-actions">0</div>
+                <div class="stat-label">Common Patterns</div>
+            </div>
+        </div>
+
+        <!-- 
+        🔸 FLOWCHART SECTION: Main visualization area
+        -->
+        <div class="flowchart-container" id="flowchart">
+            <div class="placeholder">
+                <h3>📊 Flowchart Visualization</h3>
+                <p>Select a session above to view the action flowchart</p>
+                <br>
+                <p><strong>Future Enhancement:</strong></p>
+                <p>This area will display an interactive flowchart showing:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Sequential flow of actions</li>
+                    <li>Decision points and branches</li>
+                    <li>Time delays between actions</li>
+                    <li>Success/failure indicators</li>
+                    <li>Platform-specific optimizations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 
+        🔸 ACTION LIST SECTION: Detailed list of actions
+        -->
+        <div class="action-list" id="action-list" style="display: none;">
+            <h3 style="padding: 15px; margin: 0; border-bottom: 1px solid #f0f0f0;">📋 Action Details</h3>
+            <!-- Actions will be populated here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- 
+    🔸 JAVASCRIPT: Makes the flowchart interactive
+    This code loads session data and displays it in the interface
+    -->
+    <script>
+        /*
+         * 🔹 FLOWCHART PAGE CONTROLLER
+         * This manages all interactions on the flowchart page
+         * Like a museum guide who explains all the exhibits
+         */
+        class FlowchartController {
+            constructor() {
+                this.currentSession = null;
+                this.allSessions = [];
+                this.initialize();
+            }
+
+            /*
+             * 🔸 INITIALIZE METHOD
+             * Sets up the flowchart page when it loads
+             */
+            async initialize() {
+                try {
+                    // Set up event listeners for buttons and controls
+                    this.setupEventListeners();
+                    
+                    // Load all available sessions
+                    await this.loadSessions();
+                    
+                    // Update statistics
+                    await this.updateStatistics();
+                    
+                    console.log('Flowchart page initialized successfully');
+                    
+                } catch (error) {
+                    console.error('Failed to initialize flowchart page:', error);
+                    this.showError('Failed to load session data');
+                }
+            }
+
+            /*
+             * 🔸 SETUP EVENT LISTENERS METHOD
+             * Connects all buttons to their functions
+             */
+            setupEventListeners() {
+                // Session selector dropdown
+                document.getElementById('session-select').addEventListener('change', (e) => {
+                    this.selectSession(e.target.value);
+                });
+
+                // Refresh button
+                document.getElementById('btn-refresh').addEventListener('click', () => {
+                    this.loadSessions();
+                });
+
+                // Export button  
+                document.getElementById('btn-export').addEventListener('click', () => {
+                    this.exportData();
+                });
+
+                // Clear button
+                document.getElementById('btn-clear').addEventListener('click', () => {
+                    this.clearOldSessions();
+                });
+            }
+
+            /*
+             * 🔸 LOAD SESSIONS METHOD
+             * Gets all recorded sessions from storage
+             */
+            async loadSessions() {
+                try {
+                    // Get sessions from Chrome storage
+                    const result = await new Promise(resolve => {
+                        chrome.storage.local.get(['autoapply_data'], resolve);
+                    });
+                    
+                    const data = result.autoapply_data;
+                    this.allSessions = data ? data.sessions : [];
+                    
+                    // Populate session selector dropdown
+                    const selector = document.getElementById('session-select');
+                    selector.innerHTML = '<option value="">Select a session...</option>';
+                    
+                    this.allSessions.forEach(session => {
+                        const option = document.createElement('option');
+                        option.value = session.id;
+                        option.textContent = `${session.platform} - ${new Date(session.startTime).toLocaleString()} (${session.actions.length} actions)`;
+                        selector.appendChild(option);
+                    });
+                    
+                } catch (error) {
+                    console.error('Failed to load sessions:', error);
+                    this.showError('Failed to load sessions');
+                }
+            }
+
+            /*
+             * 🔸 SELECT SESSION METHOD
+             * Displays details for the selected session
+             */
+            async selectSession(sessionId) {
+                if (!sessionId) {
+                    this.currentSession = null;
+                    this.hideActionList();
+                    return;
+                }
+
+                this.currentSession = this.allSessions.find(s => s.id === sessionId);
+                if (!this.currentSession) {
+                    this.showError('Session not found');
+                    return;
+                }
+
+                // Display action list for selected session
+                this.displayActionList();
+                
+                // --- FUTURE:FLOWCHART_DISPLAY: Show visual flowchart ---
+                this.displayFlowchart();
+            }
+
+            /*
+             * 🔸 DISPLAY ACTION LIST METHOD
+             * Shows detailed list of actions for the selected session
+             */
+            displayActionList() {
+                const actionList = document.getElementById('action-list');
+                const actions = this.currentSession.actions;
+                
+                // Clear existing content
+                actionList.innerHTML = '<h3 style="padding: 15px; margin: 0; border-bottom: 1px solid #f0f0f0;">📋 Action Details</h3>';
+                
+                // Add each action as a list item
+                actions.forEach((action, index) => {
+                    const actionItem = document.createElement('div');
+                    actionItem.className = 'action-item';
+                    
+                    // Choose icon and color based on action type
+                    const iconMap = {
+                        click: '👆',
+                        input: '⌨️', 
+                        keypress: '🔑',
+                        scroll: '📜',
+                        navigation: '🧭'
+                    };
+                    
+                    actionItem.innerHTML = `
+                        <div class="action-icon action-${action.type}">
+                            ${iconMap[action.type] || '❓'}
+                        </div>
+                        <div class="action-details">
+                            <h4>${action.description}</h4>
+                            <p><strong>Target:</strong> ${action.target}</p>
+                            <p><strong>URL:</strong> ${action.url}</p>
+                        </div>
+                        <div class="action-time">
+                            ${new Date(action.timestamp).toLocaleTimeString()}
+                        </div>
+                    `;
+                    
+                    actionList.appendChild(actionItem);
+                });
+                
+                actionList.style.display = 'block';
+            }
+
+            /*
+             * 🔸 DISPLAY FLOWCHART METHOD (FUTURE FEATURE)
+             * Shows visual flowchart of actions
+             */
+            displayFlowchart() {
+                const flowchartContainer = document.getElementById('flowchart');
+                
+                // --- FUTURE:MERMAID_INTEGRATION: Use Mermaid.js for flowcharts ---
+                // This would create interactive flowcharts like:
+                // Start -> Fill Email -> Click Submit -> Wait -> Success
+                
+                flowchartContainer.innerHTML = `
+                    <div class="placeholder">
+                        <h3>🔄 Processing Session: ${this.currentSession.platform}</h3>
+                        <p><strong>${this.currentSession.actions.length}</strong> actions recorded</p>
+                        <p>Started: ${new Date(this.currentSession.startTime).toLocaleString()}</p>
+                        <br>
+                        <p><em>Interactive flowchart visualization coming soon!</em></p>
+                    </div>
+                `;
+            }
+
+            /*
+             * 🔸 UPDATE STATISTICS METHOD
+             * Calculates and displays summary statistics
+             */
+            async updateStatistics() {
+                const totalSessions = this.allSessions.length;
+                const totalActions = this.allSessions.reduce((sum, session) => sum + session.actions.length, 0);
+                const avgActions = totalSessions > 0 ? Math.round(totalActions / totalSessions) : 0;
+                
+                // Calculate common patterns (actions that appear in multiple sessions)
+                const actionPatterns = new Map();
+                this.allSessions.forEach(session => {
+                    session.actions.forEach(action => {
+                        const pattern = `${action.type}:${action.target}`;
+                        actionPatterns.set(pattern, (actionPatterns.get(pattern) || 0) + 1);
+                    });
+                });
+                
+                const commonActions = Array.from(actionPatterns.values()).filter(count => count >= 3).length;
+                
+                // Update UI
+                document.getElementById('total-sessions').textContent = totalSessions;
+                document.getElementById('total-actions').textContent = totalActions;
+                document.getElementById('avg-actions').textContent = avgActions;
+                document.getElementById('common-actions').textContent = commonActions;
+            }
+
+            /*
+             * 🔸 EXPORT DATA METHOD
+             * Exports session data to CSV file
+             */
+            async exportData() {
+                try {
+                    // Generate CSV data
+                    let csv = 'Session ID,Platform,Start Time,Action Type,Target,Description,URL,Timestamp\n';
+                    
+                    this.allSessions.forEach(session => {
+                        session.actions.forEach(action => {
+                            csv += `"${session.id}","${session.platform}","${new Date(session.startTime).toISOString()}","${action.type}","${action.target}","${action.description}","${action.url}","${new Date(action.timestamp).toISOString()}"\n`;
+                        });
+                    });
+                    
+                    // Download the file
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `autoapply_flowchart_${new Date().toISOString().split('T')[0]}.csv`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    
+                    this.showSuccess('Data exported successfully!');
+                    
+                } catch (error) {
+                    console.error('Export failed:', error);
+                    this.showError('Failed to export data');
+                }
+            }
+
+            /*
+             * 🔸 UTILITY METHODS
+             */
+            hideActionList() {
+                document.getElementById('action-list').style.display = 'none';
+            }
+
+            showError(message) {
+                alert(`Error: ${message}`);
+            }
+
+            showSuccess(message) {
+                alert(`Success: ${message}`);
+            }
+
+            async clearOldSessions() {
+                if (confirm('This will delete all sessions older than 30 days. Continue?')) {
+                    // --- FUTURE:DATA_CLEANUP: Implement smart session cleanup ---
+                    alert('Session cleanup feature coming soon!');
+                }
+            }
+        }
+
+        /*
+         * WHY THIS FLOWCHART PAGE MATTERS:
+         * Non-tech readers: This page is like a report that shows you everything
+         * the extension has learned from watching you apply for jobs. It helps
+         * you understand patterns in your application process and see what
+         * steps are being automated.
+         * 
+         * Future changes: We could add interactive flowcharts, pattern analysis,
+         * success rate tracking, or integration with job board analytics.
+         */
+
+        // Initialize the flowchart controller when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new FlowchartController();
+        });
+    </script>
+</body>
+</html>
