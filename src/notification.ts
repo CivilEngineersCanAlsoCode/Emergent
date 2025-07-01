@@ -202,15 +202,16 @@ export class NotificationManager {
   static async clearAll(): Promise<void> {
     try {
       // Get all active notifications and clear them
-      const notifications = await chrome.notifications.getAll();
-      if (notifications) {
-        const notificationIds = Object.keys(notifications);
-        for (const id of notificationIds) {
-          if (id.startsWith('autoapply-notification-')) {
-            await chrome.notifications.clear(id);
+      chrome.notifications.getAll((notifications) => {
+        if (notifications) {
+          const notificationIds = Object.keys(notifications);
+          for (const id of notificationIds) {
+            if (id.startsWith('autoapply-notification-')) {
+              chrome.notifications.clear(id);
+            }
           }
         }
-      }
+      });
     } catch (error) {
       console.error('Failed to clear notifications:', error);
     }
