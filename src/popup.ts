@@ -469,7 +469,7 @@ class PopupController {
             this.showStatus('✅ Export Complete', 'Data exported to CSV file');
 
         } catch (error) {
-            this.showError(`Export failed: ${error.message}`);
+            this.showError(`Export failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
 }
