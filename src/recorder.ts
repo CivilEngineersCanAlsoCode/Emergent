@@ -276,7 +276,7 @@ export class ActionRecorder {
       { element: document, event: 'click', handler: clickListener },
       { element: document, event: 'input', handler: inputListener },
       { element: document, event: 'keydown', handler: keypressListener },
-      { element: window, event: 'scroll', handler: scrollListener }
+      { element: window as any, event: 'scroll', handler: scrollListener }
     );
 
     /*
