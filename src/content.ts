@@ -337,7 +337,7 @@ class ContentScript {
 
         } catch (error) {
             await NotificationManager.showError(
-                `Failed to resume replay: ${error.message}`,
+                `Failed to resume replay: ${error instanceof Error ? error.message : 'Unknown error'}`,
                 'Resume Error'
             );
             throw error;
