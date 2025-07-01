@@ -273,7 +273,7 @@ class ContentScript {
 
         } catch (error) {
             await NotificationManager.showError(
-                `Failed to stop recording: ${error.message}`,
+                `Failed to stop recording: ${error instanceof Error ? error.message : 'Unknown error'}`,
                 'Recording Error'
             );
             throw error;
