@@ -169,7 +169,7 @@ class ContentScript {
 
             } catch (error) {
                 console.error('AutoApply: Error handling message:', error);
-                sendResponse({ success: false, message: error.message });
+                sendResponse({ success: false, message: error instanceof Error ? error.message : 'Unknown error' });
             }
         });
     }
