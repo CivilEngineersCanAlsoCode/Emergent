@@ -229,21 +229,22 @@ export class ActionRecorder {
 
     // 🔹 KEYPRESS LISTENER: Captures special key presses like Enter or Tab
     // Like noting when you press important keys
-    const keypressListener = (event: KeyboardEvent) => {
+    const keypressListener = (event: Event) => {
+      const keyEvent = event as KeyboardEvent;
       // Only record special keys that might be important for navigation
       const specialKeys = ['Enter', 'Tab', 'Escape', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      if (specialKeys.includes(event.key)) {
+      if (specialKeys.includes(keyEvent.key)) {
         this.recordAction({
           type: 'keypress',
-          target: this.getElementSelector(event.target as HTMLElement),
+          target: this.getElementSelector(keyEvent.target as HTMLElement),
           data: {
-            key: event.key,
-            code: event.code,
-            ctrlKey: event.ctrlKey,
-            shiftKey: event.shiftKey,
-            altKey: event.altKey
+            key: keyEvent.key,
+            code: keyEvent.code,
+            ctrlKey: keyEvent.ctrlKey,
+            shiftKey: keyEvent.shiftKey,
+            altKey: keyEvent.altKey
           },
-          description: `Pressed ${event.key} key`
+          description: `Pressed ${keyEvent.key} key`
         });
       }
     };
