@@ -318,7 +318,7 @@ class ContentScript {
 
         } catch (error) {
             await NotificationManager.showError(
-                `Failed to stop replay: ${error.message}`,
+                `Failed to stop replay: ${error instanceof Error ? error.message : 'Unknown error'}`,
                 'Replay Error'
             );
             throw error;
