@@ -1,0 +1,120 @@
+{
+  "timestamp": "2025-07-01T08:52:38.036445",
+  "extension_name": "AutoApply",
+  "extension_dir": "/app/dist",
+  "tests": [
+    {
+      "name": "Manifest and Structure Validation",
+      "script": "/app/extension_test.py",
+      "passed": [
+        "\u2705 PASSED CHECKS:",
+        "\u2705 Manifest version is 3 (current)",
+        "\u2705 Manifest contains required field 'name'",
+        "\u2705 Manifest contains required field 'version'",
+        "\u2705 Manifest contains required field 'description'",
+        "\u2705 Background uses service_worker (correct for Manifest V3)",
+        "\u2705 Required file manifest.json exists",
+        "\u2705 Required file background.js exists",
+        "\u2705 Required file popup.html exists",
+        "\u2705 Required file popup.js exists",
+        "\u2705 Content script content.js exists",
+        "\u2705 Notifications permission present for notification functionality",
+        "\u2705 Storage permission present for data storage functionality",
+        "\u2705 Content script #1 has valid matches",
+        "\u2705 Content script #1 has JS files defined"
+      ],
+      "warnings": [
+        "\u26a0\ufe0f WARNINGS:",
+        "\u26a0\ufe0f Extension uses sensitive permission: tabs",
+        "\u26a0\ufe0f Icon icons/icon16.png is very small (37 bytes), might be a placeholder",
+        "\u26a0\ufe0f Icon icons/icon32.png is very small (37 bytes), might be a placeholder",
+        "\u26a0\ufe0f Icon icons/icon48.png is very small (37 bytes), might be a placeholder",
+        "\u26a0\ufe0f Icon icons/icon128.png is very small (38 bytes), might be a placeholder"
+      ],
+      "issues": [],
+      "status": "PASS",
+      "output": "\ud83d\udd0d Validating Chrome extension in /app/dist\n\n\ud83d\udccb VALIDATION RESULTS:\n\n\u2705 PASSED CHECKS:\n  \u2705 Manifest version is 3 (current)\n  \u2705 Manifest contains required field 'name'\n  \u2705 Manifest contains required field 'version'\n  \u2705 Manifest contains required field 'description'\n  \u2705 Background uses service_worker (correct for Manifest V3)\n  \u2705 Required file manifest.json exists\n  \u2705 Required file background.js exists\n  \u2705 Required file popup.html exists\n  \u2705 Required file popup.js exists\n  \u2705 Content script content.js exists\n  \u2705 Notifications permission present for notification functionality\n  \u2705 Storage permission present for data storage functionality\n  \u2705 Content script #1 has valid matches\n  \u2705 Content script #1 has JS files defined\n\n\u26a0\ufe0f WARNINGS:\n  \u26a0\ufe0f Extension uses sensitive permission: tabs\n  \u26a0\ufe0f Icon icons/icon16.png is very small (37 bytes), might be a placeholder\n  \u26a0\ufe0f Icon icons/icon32.png is very small (37 bytes), might be a placeholder\n  \u26a0\ufe0f Icon icons/icon48.png is very small (37 bytes), might be a placeholder\n  \u26a0\ufe0f Icon icons/icon128.png is very small (38 bytes), might be a placeholder\n\n\ud83d\udcca SUMMARY: 14 passed, 5 warnings, 0 issues\n\n\ud83c\udf89 VALIDATION SUCCESSFUL: No critical issues found!\n"
+    },
+    {
+      "name": "UI Component Validation",
+      "script": "/app/ui_test.py",
+      "passed": [
+        "\u2705 PASSED CHECKS:",
+        "\u2705 popup.html has proper DOCTYPE declaration",
+        "\u2705 popup.html contains Start Recording button",
+        "\u2705 popup.html contains Replay button",
+        "\u2705 popup.html contains Stop button",
+        "\u2705 popup.html contains Status display",
+        "\u2705 popup.html contains Progress display",
+        "\u2705 popup.html includes popup.js script",
+        "\u2705 popup.js has click event listeners",
+        "\u2705 popup.js selects DOM elements",
+        "\u2705 popup.js uses chrome.tabs API",
+        "\u2705 popup.js uses chrome.runtime API",
+        "\u2705 popup.js uses chrome.storage API",
+        "\u2705 popup.js includes error handling"
+      ],
+      "warnings": [],
+      "issues": [],
+      "status": "PASS",
+      "output": "\ud83d\udd0d Validating Chrome extension UI in /app/dist\n\n\ud83d\udccb UI VALIDATION RESULTS:\n\n\u2705 PASSED CHECKS:\n  \u2705 popup.html has proper DOCTYPE declaration\n  \u2705 popup.html contains Start Recording button\n  \u2705 popup.html contains Replay button\n  \u2705 popup.html contains Stop button\n  \u2705 popup.html contains Status display\n  \u2705 popup.html contains Progress display\n  \u2705 popup.html includes popup.js script\n  \u2705 popup.js has click event listeners\n  \u2705 popup.js selects DOM elements\n  \u2705 popup.js uses chrome.tabs API\n  \u2705 popup.js uses chrome.runtime API\n  \u2705 popup.js uses chrome.storage API\n  \u2705 popup.js includes error handling\n\n\ud83d\udcca SUMMARY: 13 passed, 0 warnings, 0 issues\n\n\ud83c\udf89 UI VALIDATION SUCCESSFUL: No critical issues found!\n"
+    },
+    {
+      "name": "Content Script Validation",
+      "script": "/app/content_test.py",
+      "passed": [
+        "\u2705 PASSED CHECKS:",
+        "\u2705 content.js includes Recording functionality",
+        "\u2705 content.js includes Replay functionality",
+        "\u2705 content.js includes Event listeners",
+        "\u2705 content.js includes DOM manipulation",
+        "\u2705 content.js includes Message handling",
+        "\u2705 content.js includes Error handling",
+        "\u2705 content.js includes Click recording",
+        "\u2705 content.js includes Input recording",
+        "\u2705 content.js includes Keypress recording",
+        "\u2705 content.js includes Navigation recording",
+        "\u2705 content.js includes Action execution",
+        "\u2705 content.js includes Human-like delays",
+        "\u2705 content.js includes Error recovery",
+        "\u2705 content.js includes Captcha detection",
+        "\u2705 content.js includes job platform detection"
+      ],
+      "warnings": [],
+      "issues": [],
+      "status": "PASS",
+      "output": "\ud83d\udd0d Validating Chrome extension content script in /app/dist\n\n\ud83d\udccb CONTENT SCRIPT VALIDATION RESULTS:\n\n\u2705 PASSED CHECKS:\n  \u2705 content.js includes Recording functionality\n  \u2705 content.js includes Replay functionality\n  \u2705 content.js includes Event listeners\n  \u2705 content.js includes DOM manipulation\n  \u2705 content.js includes Message handling\n  \u2705 content.js includes Error handling\n  \u2705 content.js includes Click recording\n  \u2705 content.js includes Input recording\n  \u2705 content.js includes Keypress recording\n  \u2705 content.js includes Navigation recording\n  \u2705 content.js includes Action execution\n  \u2705 content.js includes Human-like delays\n  \u2705 content.js includes Error recovery\n  \u2705 content.js includes Captcha detection\n  \u2705 content.js includes job platform detection\n\n\ud83d\udcca SUMMARY: 15 passed, 0 warnings, 0 issues\n\n\ud83c\udf89 CONTENT SCRIPT VALIDATION SUCCESSFUL: No critical issues found!\n"
+    },
+    {
+      "name": "Background Script Validation",
+      "script": "/app/background_test.py",
+      "passed": [
+        "\u2705 PASSED CHECKS:",
+        "\u2705 background.js includes Message handling",
+        "\u2705 background.js includes Storage operations",
+        "\u2705 background.js includes Error handling",
+        "\u2705 background.js includes Extension lifecycle",
+        "\u2705 background.js includes Notification system",
+        "\u2705 background.js includes Badge management",
+        "\u2705 background.js includes Session management",
+        "\u2705 background.js includes Data persistence",
+        "\u2705 background.js includes Platform detection",
+        "\u2705 background.js listens for Runtime message events",
+        "\u2705 background.js listens for Tab events",
+        "\u2705 background.js listens for Alarm events",
+        "\u2705 background.js listens for Storage events"
+      ],
+      "warnings": [],
+      "issues": [],
+      "status": "PASS",
+      "output": "\ud83d\udd0d Validating Chrome extension background script in /app/dist\n\n\ud83d\udccb BACKGROUND SCRIPT VALIDATION RESULTS:\n\n\u2705 PASSED CHECKS:\n  \u2705 background.js includes Message handling\n  \u2705 background.js includes Storage operations\n  \u2705 background.js includes Error handling\n  \u2705 background.js includes Extension lifecycle\n  \u2705 background.js includes Notification system\n  \u2705 background.js includes Badge management\n  \u2705 background.js includes Session management\n  \u2705 background.js includes Data persistence\n  \u2705 background.js includes Platform detection\n  \u2705 background.js listens for Runtime message events\n  \u2705 background.js listens for Tab events\n  \u2705 background.js listens for Alarm events\n  \u2705 background.js listens for Storage events\n\n\ud83d\udcca SUMMARY: 13 passed, 0 warnings, 0 issues\n\n\ud83c\udf89 BACKGROUND SCRIPT VALIDATION SUCCESSFUL: No critical issues found!\n"
+    }
+  ],
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 4,
+    "warnings": 6,
+    "issues": 0
+  },
+  "overall_status": "PASS"
+}
