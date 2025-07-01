@@ -93,7 +93,7 @@ class PopupController {
                     await this.startRecording();
                 }
             } catch (error) {
-                this.showError(`Recording error: ${error.message}`);
+                this.showError(`Recording error: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
         });
 
